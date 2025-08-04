@@ -1,0 +1,6 @@
+@Pratik___Identity_and_Data_Protection_HostAddress = http://localhost:5254
+
+GET {{Pratik___Identity_and_Data_Protection_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
