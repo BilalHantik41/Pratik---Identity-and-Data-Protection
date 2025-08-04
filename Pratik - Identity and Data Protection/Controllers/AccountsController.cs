@@ -12,12 +12,14 @@ namespace Pratik___Identity_and_Data_Protection.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
 
-        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
 
 
@@ -53,7 +55,9 @@ namespace Pratik___Identity_and_Data_Protection.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return Ok(new { message = "Giriş Başarılı" });
+
+                    var token = Helper.GenerateJwtToken(model.Email, _configuration["Jwt:Key"], _configuration["Jwt: Issuer"], _configuration["Jwt:Audience"]);
+                    return Ok(new { message = "Giriş Başarılı" , token = token });
                 }
                 else
                 {

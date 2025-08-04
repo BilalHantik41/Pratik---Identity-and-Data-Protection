@@ -13,7 +13,7 @@ namespace Pratik___Identity_and_Data_Protection.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250804181713_identity")]
-    partial class identity
+    partial class Identity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
